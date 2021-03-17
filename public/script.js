@@ -26,6 +26,14 @@ mypeer.on('open', id => {
     socket.emit('join-room', ROOM_ID, 10)
 })
 
+function connectToNewUser(userId, stream) {
+    const call = myPeer.call(userId, Stream)
+    const video = document.createElement('video')
+    call.on('stream', userVideoStream => {
+        addVideoStream(userVideoStream)
+    })
+}
+
 function addVideoStream(video, stream) {
     video.srcObject = stream
     video.addEventListener('loadedmetadata', () => {
