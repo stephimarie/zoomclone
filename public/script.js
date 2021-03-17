@@ -14,7 +14,7 @@ navigator.mediaDevices.getUserMedia({
     video: true,
     audio: true
 }).then(Stream => {
-
+    addVideoStream(myVideo, stream)
 })
 
 mypeer.on('open', id => {
