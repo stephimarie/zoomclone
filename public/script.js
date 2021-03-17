@@ -1,4 +1,5 @@
 const { truncate } = require("fs")
+const { connect } = require("http2")
 const { Stream } = require("stream")
 
 const socket = io('/')
@@ -15,14 +16,14 @@ navigator.mediaDevices.getUserMedia({
     audio: true
 }).then(Stream => {
     addVideoStream(myVideo, stream)
+
+    socket.on('user-connected', userId =>{
+        connectToNewUser(userId, stream)
+    })
 })
 
 mypeer.on('open', id => {
     socket.emit('join-room', ROOM_ID, 10)
-})
-
-socket.on('user-connected', userId => {
-    console.log('User connected: ' + userId)
 })
 
 function addVideoStream(video, stream) {
