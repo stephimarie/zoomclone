@@ -25,3 +25,10 @@ socket.on('user-connected', userId => {
     console.log('User connected: ' + userId)
 })
 
+function addVideoStream(video, stream) {
+    video.srcObject = stream
+    video.addEventListener('loadedmetadata', () => {
+        video.play()
+    })
+    videoGrid.append(video)
+}
